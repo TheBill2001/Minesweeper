@@ -19,14 +19,10 @@ public class MainMenu extends VBox {
         title.setStroke(Color.GRAY);
 
         Button playButton = new Button("Play");
-        playButton.setOnAction((ActionEvent event) -> {
-            getScene().setRoot(new GameSetting());
-        });
+        playButton.setOnAction((ActionEvent event) -> getScene().setRoot(new GameSetting()));
 
         Button quitButton = new Button("Quit");
-        quitButton.setOnAction((ActionEvent event) -> {
-            Platform.exit();
-        });
+        quitButton.setOnAction((ActionEvent event) -> Platform.exit());
 
         super.getChildren().addAll(title, playButton, quitButton);
 
