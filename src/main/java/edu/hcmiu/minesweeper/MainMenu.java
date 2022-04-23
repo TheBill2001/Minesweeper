@@ -19,19 +19,19 @@ public class MainMenu extends VBox {
         title.setStroke(Color.GRAY);
 
         Button playButton = new Button("Play");
-
-        Button scoreboardButton = new Button("Scoreboard");
+        playButton.setOnAction((ActionEvent event) -> {
+            getScene().setRoot(new GameSetting());
+        });
 
         Button quitButton = new Button("Quit");
         quitButton.setOnAction((ActionEvent event) -> {
             Platform.exit();
         });
 
-        super.getChildren().addAll(title, playButton, scoreboardButton, quitButton);
+        super.getChildren().addAll(title, playButton, quitButton);
 
         setMargin(title, new Insets(50, 50, 50, 50));
         setMargin(playButton, new Insets(5, 20, 5, 20));
-        setMargin(scoreboardButton, new Insets(5, 20, 5, 20));
         setMargin(quitButton, new Insets(5, 20, 50, 20));
         setAlignment(Pos.CENTER);
     }

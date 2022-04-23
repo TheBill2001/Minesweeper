@@ -11,7 +11,6 @@ public class Minesweeper extends Application {
         MainMenu mainMenu = new MainMenu();
 
         Scene scene = new Scene(mainMenu);
-        scene.setFill(Color.LIGHTGRAY);
 
         stage.setTitle("Minesweeper");
         stage.setScene(scene);
