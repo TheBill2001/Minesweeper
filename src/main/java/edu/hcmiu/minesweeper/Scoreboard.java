@@ -1,4 +1,4 @@
 package edu.hcmiu.minesweeper;
 
-public class Game {
+public class Scoreboard {
 }
