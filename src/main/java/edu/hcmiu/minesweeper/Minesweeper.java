@@ -7,9 +7,7 @@ import javafx.stage.Stage;
 public class Minesweeper extends Application {
     @Override
     public void start(Stage stage) {
-        MainMenu mainMenu = new MainMenu();
-
-        Scene scene = new Scene(mainMenu);
+        Scene scene = new Scene(new MainMenu());
 
         stage.setTitle("Minesweeper");
         stage.setScene(scene);
