@@ -31,18 +31,21 @@ public class GameSetting extends VBox {
         GridPane.setConstraints(rowText, 0, 0);
 
         Spinner<Integer> rowSpinner = new Spinner<>(10, 100, 10);
+        rowSpinner.setEditable(true);
         GridPane.setConstraints(rowSpinner, 1, 0);
 
         Text columnText = new Text("Column");
         GridPane.setConstraints(columnText, 0, 1);
 
         Spinner<Integer> columnSpinner = new Spinner<>(10, 100, 10);
+        columnSpinner.setEditable(true);
         GridPane.setConstraints(columnSpinner, 1, 1);
 
         Text mineDensityText = new Text("Mine density (%)");
         GridPane.setConstraints(mineDensityText, 0, 2);
 
         Spinner<Double> mineDensitySpinner = new Spinner<>(0.0, 100.0, 25.0, 0.01);
+        mineDensitySpinner.setEditable(true);
         GridPane.setConstraints(mineDensitySpinner, 1, 2);
 
         Text undoText = new Text("Allow undo");
