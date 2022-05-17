@@ -44,7 +44,7 @@ public class GameSetting extends VBox {
         Text mineDensityText = new Text("Mine density (%)");
         GridPane.setConstraints(mineDensityText, 0, 2);
 
-        Spinner<Double> mineDensitySpinner = new Spinner<>(0.0, 100.0, 25.0, 0.01);
+        Spinner<Double> mineDensitySpinner = new Spinner<>(10.0, 60.0, 10.0, 0.01);
         mineDensitySpinner.setEditable(true);
         GridPane.setConstraints(mineDensitySpinner, 1, 2);
 
@@ -58,22 +58,19 @@ public class GameSetting extends VBox {
         Text guessingText = new Text("Allow guessing");
         GridPane.setConstraints(guessingText, 0, 4);
 
-        Text perlinText = new Text("Use perlin noise");
-        GridPane.setConstraints(perlinText, 0, 5);
-
-        CheckBox perlinBox = new CheckBox();
-        perlinBox.setSelected(true);
-        GridPane.setConstraints(perlinBox, 1, 5);
+        CheckBox guessingBox = new CheckBox();
+        guessingBox.setSelected(false);
+        GridPane.setConstraints(guessingBox, 1, 4);
 
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-        gridPane.getChildren().addAll(rowText, rowSpinner, columnText, columnSpinner, mineDensityText, mineDensitySpinner, undoText, undoCheckBox, guessingText, perlinText, perlinBox);
+        gridPane.getChildren().addAll(rowText, rowSpinner, columnText, columnSpinner, mineDensityText, mineDensitySpinner, undoText, undoCheckBox, guessingText, guessingBox);
         gridPane.setAlignment(Pos.CENTER);
 
         beginButton.setOnAction((ActionEvent event) -> {
             Minesweeper.changeScene("Game");
             Game game = (Game) Minesweeper.sceneMap.get("Game");
-            game.start(rowSpinner.getValue(),columnSpinner.getValue(), mineDensitySpinner.getValue(), undoCheckBox.isSelected(), perlinBox.isSelected());
+            game.start(rowSpinner.getValue(),columnSpinner.getValue(), mineDensitySpinner.getValue(), undoCheckBox.isSelected(), guessingBox.isSelected());
         });
 
         super.getChildren().addAll(title, gridPane, beginButton, returnButton);

@@ -7,31 +7,28 @@ import javafx.scene.control.Button;
 public class Tile extends Button {
     private final int row;
     private final int column;
-    private final boolean bomb;
     private final BooleanProperty marked = new SimpleBooleanProperty();
 
-    public Tile(Integer row, Integer column, Boolean bomb) {
+    public Tile(Integer row, Integer column) {
         this.row = row;
         this.column = column;
-        this.bomb = bomb;
         this.marked.setValue(false);
 
         setPrefSize(30,30);
-        setStyle("-fx-background-color: #ffffff; -fx-border-color: #0000ff;");
+        setStyle("-fx-background-color: #ffffff; -fx-border-color: #0000ff; -fx-font-weight: bold");
 
-        marked.addListener(changeListener -> setStyle("-fx-background-color: " + (!isMarked() ? "#ffffff" : "#ffff00") + "; -fx-border-color: #0000ff;"));
-
-        disableProperty().addListener(changeListener -> setStyle("-fx-background-color: " + (this.bomb ? "#ff0000" : "#ffffff") + "; -fx-border-color: #0000ff;"));
-
-        setOnMouseClicked(mouseEvent -> {
-            switch (mouseEvent.getButton()) {
-                case PRIMARY -> {
-                    if (!isMarked())
-                        setDisable(true);
-                }
-                case SECONDARY -> marked.setValue(!isMarked());
-            }
+        marked.addListener(changeListener -> setStyle("-fx-background-color: " + (!isMarked() ? "#ffffff" : "#ffff00") + "; -fx-border-color: #0000ff; -fx-font-weight: bold"));
+        disabledProperty().addListener(changeListener -> {
+            if (!disabledProperty().getValue())
+                setText("");
         });
+    }
+
+    public void setDetonate(boolean val) {
+        if (val)
+            setStyle("-fx-background-color: #ff0000; -fx-border-color: #0000ff; -fx-font-weight: bold");
+        else
+            setStyle("-fx-background-color: #ffffff; -fx-border-color: #0000ff; -fx-font-weight: bold");
     }
 
     public int getRow() {
@@ -42,24 +39,11 @@ public class Tile extends Button {
         return column;
     }
 
-    public boolean isBomb() {
-        return bomb;
-    }
-
     public boolean isMarked() {
         return marked.getValue();
     }
 
-    public BooleanProperty markedProperty() {
-        return marked;
-    }
-
     public void setMarked(Boolean marked) {
         this.marked.setValue(marked);
-    }
-
-    public void setStates(Boolean enable, Boolean marked) {
-        setDisable(!enable);
-        setMarked(marked);
     }
 }
