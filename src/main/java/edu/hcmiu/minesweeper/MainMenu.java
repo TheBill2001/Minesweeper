@@ -19,7 +19,7 @@ public class MainMenu extends VBox {
         title.setStroke(Color.GRAY);
 
         Button playButton = new Button("Play");
-        playButton.setOnAction(actionEvent -> getScene().setRoot(new GameSetting()));
+        playButton.setOnAction(actionEvent -> Minesweeper.changeScene("GameSetting"));
 
         Button quitButton = new Button("Quit");
         quitButton.setOnAction(actionEvent -> Platform.exit());

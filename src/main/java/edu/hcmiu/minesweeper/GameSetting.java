@@ -21,7 +21,7 @@ public class GameSetting extends VBox {
         title.setStroke(Color.GRAY);
 
         Button returnButton = new Button("Return");
-        returnButton.setOnAction((ActionEvent event) -> getScene().setRoot(new MainMenu()));
+        returnButton.setOnAction(actionEvent -> Minesweeper.changeScene("MainMenu"));
 
         Button beginButton = new Button("Begin!");
 
@@ -58,10 +58,6 @@ public class GameSetting extends VBox {
         Text guessingText = new Text("Allow guessing");
         GridPane.setConstraints(guessingText, 0, 4);
 
-        CheckBox guessingBox = new CheckBox();
-        guessingBox.setSelected(false);
-        GridPane.setConstraints(guessingBox, 1, 4);
-
         Text perlinText = new Text("Use perlin noise");
         GridPane.setConstraints(perlinText, 0, 5);
 
@@ -71,10 +67,14 @@ public class GameSetting extends VBox {
 
         gridPane.setHgap(5);
         gridPane.setVgap(5);
-        gridPane.getChildren().addAll(rowText, rowSpinner, columnText, columnSpinner, mineDensityText, mineDensitySpinner, undoText, undoCheckBox, guessingText, guessingBox, perlinText, perlinBox);
+        gridPane.getChildren().addAll(rowText, rowSpinner, columnText, columnSpinner, mineDensityText, mineDensitySpinner, undoText, undoCheckBox, guessingText, perlinText, perlinBox);
         gridPane.setAlignment(Pos.CENTER);
 
-        beginButton.setOnAction((ActionEvent event) -> getScene().setRoot(new Game(rowSpinner.getValue(),columnSpinner.getValue(), mineDensitySpinner.getValue(), guessingBox.isSelected(), undoCheckBox.isSelected(), perlinBox.isSelected())));
+        beginButton.setOnAction((ActionEvent event) -> {
+            Minesweeper.changeScene("Game");
+            Game game = (Game) Minesweeper.sceneMap.get("Game");
+            game.start(rowSpinner.getValue(),columnSpinner.getValue(), mineDensitySpinner.getValue(), undoCheckBox.isSelected(), perlinBox.isSelected());
+        });
 
         super.getChildren().addAll(title, gridPane, beginButton, returnButton);
 
