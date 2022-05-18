@@ -3,7 +3,6 @@ The is a minesweeper game created as a project for the **_Algorithms and Data st
 
 # 2. Feature
 * With undo.
-* *TBA.*
 
 # 3. Dependencies and Requirements
 ## 3.1 Java
