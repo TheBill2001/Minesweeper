@@ -118,6 +118,9 @@ public class Grid {
         if (isLocked()) {
             setLocked(false);
         }
+
+        if (isLost())
+            lost = false;
     }
 
     public void reveal(Integer depth, Integer row, Integer column) {
