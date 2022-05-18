@@ -17,6 +17,7 @@ public class Grid {
     private ArrayList<ArrayList<HashMap<String, Object>>> grid = new ArrayList<>();
     private boolean locked = false;
     private boolean firstSelect;
+    private boolean lost = false;
 
     public Grid() {
     }
@@ -32,6 +33,7 @@ public class Grid {
         this.allowGuessing.set(allowGuessing);
         this.firstSelect = false;
         this.locked = false;
+        this.lost = false;
 
         for (int i = 0; i < row; i++) {
             ArrayList<HashMap<String, Object>> arrayList = new ArrayList<>();
@@ -57,9 +59,9 @@ public class Grid {
         }
     }
 
-    public void select(Integer row, Integer column) {
+    public boolean select(Integer row, Integer column) {
         if (locked)
-            return;
+            return false;
         if (!firstSelect && !allowGuessing.get()) {
             updateTile(row, column, "bomb", false);
             firstSelect = true;
@@ -73,10 +75,14 @@ public class Grid {
         if (allowUndo.get())
             addUndo();
 
-        if (isBomb(row, column))
-            return;
+        if (isBomb(row, column)) {
+            lost = true;
+            return true;
+        }
 
         reveal(0, row, column);
+
+        return false;
     }
 
     public void addUndo() {
@@ -97,10 +103,6 @@ public class Grid {
         if (undoStack.size() == 0)
             return;
 
-        if (isLocked()) {
-            setLocked(false);
-        }
-
         // perform deep copy
         ArrayList<ArrayList<HashMap<String, Object>>> newGrid = new ArrayList<>();
         for (ArrayList<HashMap<String, Object>> arrayList : undoStack.pop()) {
@@ -112,6 +114,10 @@ public class Grid {
         }
 
         grid = newGrid;
+
+        if (isLocked()) {
+            setLocked(false);
+        }
     }
 
     public void reveal(Integer depth, Integer row, Integer column) {
@@ -193,6 +199,10 @@ public class Grid {
             }
         }
         return true;
+    }
+
+    public boolean isLost() {
+        return lost;
     }
 
     public boolean isAllowUndo() {

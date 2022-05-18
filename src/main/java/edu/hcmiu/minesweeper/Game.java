@@ -93,18 +93,18 @@ public class Game extends BorderPane {
                 tile.setOnMouseClicked(eventHandler -> {
                     switch (eventHandler.getButton()) {
                         case PRIMARY -> {
-                            if (!tile.isMarked()) {
-                                grid.select(tile.getRow(), tile.getColumn());
-                                if (!grid.isLocked() && grid.isBomb(tile.getRow(), tile.getColumn())) {
-                                    grid.setLocked(true);
+                            if (!tile.isMarked() && !grid.isLocked()) {
+                                if (grid.select(tile.getRow(), tile.getColumn()))
                                     tile.setDetonate(true);
-                                    detonate();
-                                }
+
                                 updateVisual(false);
                                 checkWin();
                             }
                         }
-                        case SECONDARY -> tile.setMarked(!tile.isMarked());
+                        case SECONDARY -> {
+                            if (!grid.isLocked())
+                                tile.setMarked(!tile.isMarked());
+                        }
                     }
                 });
                 gridPane.add(tile, j, i);
@@ -114,11 +114,6 @@ public class Game extends BorderPane {
         updateVisual(false);
     }
 
-    public void detonate() {
-        elapseTimer.stop();
-        timerLabel.setText(timerLabel.getText() + ". You lost! Try again.");
-    }
-
     public void checkWin() {
         if (grid.isWin()) {
             grid.setLocked(true);
@@ -126,12 +121,17 @@ public class Game extends BorderPane {
             undoButton.setDisable(true);
             timerLabel.setText(timerLabel.getText() + ". You win!");
         }
+
+        if (grid.isLost()) {
+            elapseTimer.stop();
+            grid.setLocked(true);
+            timerLabel.setText(timerLabel.getText() + ". You lost! Try again.");
+        }
     }
 
     private void updateVisual(boolean undo) {
         for (Node node : gridPane.getChildren()) {
             Tile tile = (Tile) node;
-            tile.setDisable(grid.isHidden(tile.getRow(), tile.getColumn()));
             if (grid.isHidden(tile.getRow(), tile.getColumn())) {
                 tile.setDisable(true);
                 int value = grid.getNeighbor(tile.getRow(), tile.getColumn());
