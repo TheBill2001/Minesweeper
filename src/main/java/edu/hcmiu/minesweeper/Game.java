@@ -50,8 +50,8 @@ public class Game extends BorderPane {
         undoButton.setOnAction(actionEvent -> {
             grid.undo();
             timerLabel.setText(timerLabel.getText().replace(". You lost!", ""));
-            elapseTimer.start();
             updateVisual(true);
+            elapseTimer.start();
         });
 
         HBox.setHgrow(paddingRegion, Priority.ALWAYS);
@@ -137,8 +137,10 @@ public class Game extends BorderPane {
                 int value = grid.getNeighbor(tile.getRow(), tile.getColumn());
                 if (value > 0)
                     tile.setText(String.valueOf(value));
-            }
-            if (undo)
+            } else
+                tile.setDisable(false);
+
+            if (undo && tile.isDetonated())
                 tile.setDetonate(false);
         }
     }

@@ -7,6 +7,7 @@ import javafx.scene.control.Button;
 public class Tile extends Button {
     private final int row;
     private final int column;
+    private boolean detonated = false;
     private final BooleanProperty marked = new SimpleBooleanProperty();
 
     public Tile(Integer row, Integer column) {
@@ -25,6 +26,7 @@ public class Tile extends Button {
     }
 
     public void setDetonate(boolean val) {
+        detonated = val;
         if (val)
             setStyle("-fx-background-color: #ff0000; -fx-border-color: #0000ff; -fx-font-weight: bold");
         else
@@ -41,6 +43,10 @@ public class Tile extends Button {
 
     public boolean isMarked() {
         return marked.getValue();
+    }
+
+    public boolean isDetonated() {
+        return detonated;
     }
 
     public void setMarked(Boolean marked) {
