@@ -176,28 +176,12 @@ public class Grid {
         return !((boolean) grid.get(row).get(column).get("hidden"));
     }
 
-    public int getRow() {
-        return row.get();
-    }
-
-    public int getColumn() {
-        return column.get();
-    }
-
     public boolean isLocked() {
         return locked;
     }
 
     public void setLocked(boolean locked) {
         this.locked = locked;
-    }
-
-    public double getMineChance() {
-        return mineChance.get();
-    }
-
-    public boolean isAllowGuessing() {
-        return allowGuessing.get();
     }
 
     public boolean isWin() {
