@@ -8,17 +8,18 @@ import java.util.Stack;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Grid {
-    private ArrayList<ArrayList<HashMap<String, Object>>> grid = new ArrayList<>();
     private final Stack<ArrayList<ArrayList<HashMap<String, Object>>>> undoStack = new Stack<>();
     private final IntegerProperty row = new SimpleIntegerProperty();
     private final IntegerProperty column = new SimpleIntegerProperty();
     private final DoubleProperty mineChance = new SimpleDoubleProperty();
     private final BooleanProperty allowGuessing = new SimpleBooleanProperty();
     private final BooleanProperty allowUndo = new SimpleBooleanProperty();
+    private ArrayList<ArrayList<HashMap<String, Object>>> grid = new ArrayList<>();
     private boolean locked = false;
     private boolean firstSelect;
 
-    public Grid() {}
+    public Grid() {
+    }
 
     public void regen(Integer row, Integer column, Double mineChance, boolean allowUndo, boolean allowGuessing) {
         grid.clear();
@@ -113,14 +114,14 @@ public class Grid {
         grid = newGrid;
     }
 
-    public void reveal( Integer depth, Integer row, Integer column) {
+    public void reveal(Integer depth, Integer row, Integer column) {
         if (row < 0 || row > this.row.get() - 1 || column < 0 || column > this.row.get() - 1)
             return;
         if (isHidden(row, column) || isBomb(row, column) || depth > 0)
             return;
 
         updateTile(row, column, "hidden", false);
-        
+
         int _depth = depth;
         if (getNeighbor(row, column) != 0)
             _depth++;

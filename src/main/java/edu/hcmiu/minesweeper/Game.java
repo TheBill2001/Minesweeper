@@ -12,11 +12,11 @@ import javafx.scene.layout.*;
 
 public class Game extends BorderPane {
     private final GridPane gridPane = new GridPane();
+    private final AnimationTimer elapseTimer;
+    private final Grid grid = new Grid();
     Button undoButton;
     Label timerLabel;
-    private final AnimationTimer elapseTimer;
     private long startTimeMillis = 0;
-    private final Grid grid = new Grid();
 
     public Game() {
         ScrollPane scrollPane = new ScrollPane(gridPane);

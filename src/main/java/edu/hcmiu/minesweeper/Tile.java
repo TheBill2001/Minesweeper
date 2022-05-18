@@ -14,7 +14,7 @@ public class Tile extends Button {
         this.column = column;
         this.marked.setValue(false);
 
-        setPrefSize(30,30);
+        setPrefSize(30, 30);
         setStyle("-fx-background-color: #ffffff; -fx-border-color: #0000ff; -fx-font-weight: bold");
 
         marked.addListener(changeListener -> setStyle("-fx-background-color: " + (!isMarked() ? "#ffffff" : "#ffff00") + "; -fx-border-color: #0000ff; -fx-font-weight: bold"));

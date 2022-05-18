@@ -6,7 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Minesweeper extends Application {
@@ -15,6 +14,10 @@ public class Minesweeper extends Application {
 
     public static void changeScene(String name) {
         globalScene.setRoot(sceneMap.get(name));
+    }
+
+    public static void main(String[] args) {
+        launch();
     }
 
     @Override
@@ -30,9 +33,5 @@ public class Minesweeper extends Application {
         stage.setMinWidth(500);
         stage.setMinHeight(500);
         stage.show();
-    }
-
-    public static void main(String[] args) {
-        launch();
     }
 }

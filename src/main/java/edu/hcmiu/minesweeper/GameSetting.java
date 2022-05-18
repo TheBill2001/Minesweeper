@@ -70,7 +70,7 @@ public class GameSetting extends VBox {
         beginButton.setOnAction((ActionEvent event) -> {
             Minesweeper.changeScene("Game");
             Game game = (Game) Minesweeper.sceneMap.get("Game");
-            game.start(rowSpinner.getValue(),columnSpinner.getValue(), mineDensitySpinner.getValue(), undoCheckBox.isSelected(), guessingBox.isSelected());
+            game.start(rowSpinner.getValue(), columnSpinner.getValue(), mineDensitySpinner.getValue(), undoCheckBox.isSelected(), guessingBox.isSelected());
         });
 
         super.getChildren().addAll(title, gridPane, beginButton, returnButton);
